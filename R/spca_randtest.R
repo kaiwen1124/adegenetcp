@@ -90,8 +90,8 @@ spca_randtest <-function(x, nperm = 499, p=.05){
   stats <- c(pos = sum(obs_pos), 
                neg = sum(abs(obs_neg)))
 
-  pos_test <- as.randtest(sim = sum(sims[sims >= 0]), obs = stats[1], alter = "greater")
-  neg_test <- as.randtest(sim = sum(abs(sims[sims < 0])), obs = stats[2], alter = "greater")
+  pos_test <- as.randtest(sim = colSums(pmax(sims, 0)), obs = stats[1], alter = "greater") #change
+  neg_test <- as.randtest(sim = colSums(abs(pmin(sims, 0))), obs = stats[2], alter = "greater") #change
 
   ## Single eigenvalue observed p-value and Bonferroni correction
  
